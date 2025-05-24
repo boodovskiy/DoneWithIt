@@ -7,16 +7,9 @@
     {
       "name": "Debug Android Hermes",
       "request": "launch",
-      "type": "reactnativedirect",
+      "type": "reactnative",
       "cwd": "${workspaceFolder}",
       "platform": "android"
-    },
-
-    {
-      "name": "Attach to packager",
-      "cwd": "${workspaceFolder}",
-      "type": "reactnative",
-      "request": "attach"
     }
   ]
 }
