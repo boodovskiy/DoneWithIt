@@ -1,13 +1,30 @@
-import { StyleSheet, Text, Image, TouchableWithoutFeedback, Button, Alert, SafeAreaView, Platform, StatusBar } from 'react-native';
+import { StyleSheet, 
+    Text, 
+    Image, 
+    TouchableWithoutFeedback, 
+    Button, 
+    Alert, 
+    SafeAreaView, 
+    Platform, 
+    StatusBar, 
+    View,
+    useWindowDimensions } from 'react-native';
+ import { useDeviceOrientation } from '@react-native-community/hooks'; 
 
 export default function App() {
   const handlePress = () => {
     console.log('image clicked!');
   };
 
+  const {landscape} = useDeviceOrientation();
+  const { width, height } = useWindowDimensions();
+
   return (
     <SafeAreaView style={styles.container}>
+      <StatusBar style="auto" />
+
       <Text numberOfLines={1}>Hello React Native!</Text>
+
       <TouchableWithoutFeedback onPress={handlePress}>
         <Image 
           source={{ 
@@ -17,6 +34,7 @@ export default function App() {
           }} 
         />
       </TouchableWithoutFeedback>
+
       <Button 
         color="#841584"
         title='Click me' 
@@ -25,7 +43,15 @@ export default function App() {
           { text: 'CANCEL' },
         ])} 
       />
-      <StatusBar style="auto" />
+
+      <View style={{
+        backgroundColor: 'dodgerblue',
+        width: "100%",
+        height: landscape ?  "100%" :  "30%",
+        marginTop: 20,
+      }}>
+
+      </View>
     </SafeAreaView>
   );
 }
