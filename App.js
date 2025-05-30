@@ -6,6 +6,6 @@ export default function App() {
 
 
   return (
-      <ViewImageScreen />
+      <WelcomeScreen />
   );
 }
