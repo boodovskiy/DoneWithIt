@@ -13,6 +13,7 @@ const initialMessages = [
 
 function MessagesScreen(props) {
     const [messages, setMessages] = useState(initialMessages);
+    const [refreshing, setRefreshing] = useState(false);
 
     const handleDelete = (message) => {
         // Logic to delete the message
@@ -35,6 +36,14 @@ function MessagesScreen(props) {
                     }
                 />}
                 ItemSeparatorComponent={() => <ListItemSeparator />}
+                refreshing={refreshing}
+                onRefresh={() => {
+                    setMessages([
+                        ...messages,
+                        { id: 4, title: 'Message 4', description: 'This is the fourth message', image: require('../assets/alexbud.jpg') },
+                    ]);
+                    setRefreshing(false);
+                }}
             />
         </Screen>
     );
