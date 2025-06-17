@@ -17,6 +17,7 @@
     "expo-dev-client": "~5.2.0",
     "expo-status-bar": "~2.2.3",
     "expo-updates": "~0.28.14",
+    "formik": "^2.1.4",
     "react": "19.0.0",
     "react-dom": "19.0.0",
     "react-native": "0.79.3",
