@@ -2,7 +2,15 @@ import { Image, StyleSheet } from 'react-native';
 import Screen from '../components/Screen';
 import AppTextInput from '../components/AppTextInput';
 import AppButton from '../components/AppButton';
+import AppText from '../components/AppText';
 import { Formik } from 'formik';
+import * as Yup from 'yup';
+
+// Validation schema can be defined here if needed
+const validationSchema = Yup.object().shape({
+    email: Yup.string().email().required('Email is required'),
+    password: Yup.string().min(4, 'Password must be at least 4 characters').required('Password is required'),
+});
 
 function LoginScreen(props) {
 
@@ -14,9 +22,9 @@ function LoginScreen(props) {
             <Formik
                 initialValues={{ email: '', password: '' }}
                 onSubmit={values => console.log(values)}
-                validationSchema={null} // Add your validation schema here
+                validationSchema={validationSchema} // Add your validation schema here
             >
-                {({ handleChange, handleSubmit }) => (
+                {({ handleChange, handleSubmit, errors }) => (
                     <>
                         <AppTextInput
                             autoCapitalize="none"
@@ -27,6 +35,7 @@ function LoginScreen(props) {
                             keyboardType="email-address"
                             textContentType="emailAddress"
                         />
+                        <AppText style={{ color: 'red' }}>{errors.email}</AppText>
                         <AppTextInput
                             autoCapitalize="none"
                             autoCorrect={false}
@@ -36,6 +45,7 @@ function LoginScreen(props) {
                             secureTextEntry
                             textContentType="password"
                         />
+                        <AppText style={{ color: 'red' }}>{errors.password}</AppText>
                         <AppButton
                             title="Login"
                             onPress={handleSubmit}

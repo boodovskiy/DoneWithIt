@@ -16,7 +16,6 @@ export default {
         alignSelf: 'center',
     },
     text: {
-        flex: 1,
         fontSize: 18,
         color: colors.dark,
         fontFamily: Platform.OS === 'android' ? 'Roboto' : 'Avenir',
