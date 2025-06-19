@@ -1,11 +1,10 @@
 import { Image, StyleSheet } from 'react-native';
-import Screen from '../components/Screen';
-import AppTextInput from '../components/AppTextInput';
-import AppButton from '../components/AppButton';
-import AppText from '../components/AppText';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
-import ErrorMessage from '../components/ErrorMessage';
+
+import Screen from '../components/Screen';
+import AppButton from '../components/AppButton';
+import AppFormField from '../components/AppFormField';
 
 // Validation schema can be defined here if needed
 const validationSchema = Yup.object().shape({
@@ -25,28 +24,26 @@ function LoginScreen(props) {
                 onSubmit={values => console.log(values)}
                 validationSchema={validationSchema} // Add your validation schema here
             >
-                {({ handleChange, handleSubmit, errors }) => (
+                {({ handleChange, handleSubmit, errors, setFieldTouched, touched }) => (
                     <>
-                        <AppTextInput
+                        <AppFormField
+                            name="email"
                             autoCapitalize="none"
                             autoCorrect={false}
                             icon="email"
-                            onChangeText={handleChange('email')}
                             placeholder="Email"
                             keyboardType="email-address"
                             textContentType="emailAddress"
                         />
-                        <ErrorMessage error={errors.email} />
-                        <AppTextInput
+                        <AppFormField
+                            name="password"
                             autoCapitalize="none"
                             autoCorrect={false}
                             icon="lock"
-                            onChangeText={handleChange('password')}
                             placeholder="Password"
                             secureTextEntry
                             textContentType="password"
                         />
-                        <ErrorMessage error={errors.password} />
                         <AppButton
                             title="Login"
                             onPress={handleSubmit}
