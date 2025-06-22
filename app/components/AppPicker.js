@@ -5,13 +5,13 @@ import defaultStyles from '../config/styles';
 import AppText from './AppText';
 import PickerItem from './PickerItem';
 
-function AppPicker({ icon, placeholder, items, onSelectItem, selectedItem }) {
+function AppPicker({ icon, placeholder, items, onSelectItem, selectedItem, width = "100%" }) {
     // State to control the visibility of the modal
     const [modalVisible, setModalVisible] = useState(false)
     return (
         <>
         <TouchableWithoutFeedback onPress={() => setModalVisible(true)}>
-            <View style={styles.container}>
+            <View style={[styles.container, { width }]}>
                 {icon && <MaterialCommunityIcons name={icon} size={20} color={defaultStyles.colors.medium} style={styles.icon}/>}
                 { selectedItem ? ( 
                     <AppText style={styles.text}>{selectedItem.label}</AppText>
@@ -47,7 +47,6 @@ const styles = StyleSheet.create({
         backgroundColor: defaultStyles.colors.light,
         borderRadius: 25,
         flexDirection: 'row',
-        width: '100%',
         padding: 15,
         marginVertical: 10,
     },
