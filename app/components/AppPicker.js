@@ -5,7 +5,7 @@ import defaultStyles from '../config/styles';
 import AppText from './AppText';
 import PickerItem from './PickerItem';
 
-function AppPicker({ icon, placeholder, items, onSelectItem, selectedItem, width = "100%" }) {
+function AppPicker({ icon, placeholder, PickerItemComponent = PickerItem, items, onSelectItem, selectedItem, width = "100%" }) {
     // State to control the visibility of the modal
     const [modalVisible, setModalVisible] = useState(false)
     return (
@@ -27,7 +27,7 @@ function AppPicker({ icon, placeholder, items, onSelectItem, selectedItem, width
                     data={items}
                     keyExtractor={item => item.value.toString()}
                     renderItem={({ item }) => 
-                        <PickerItem 
+                        <PickerItemComponent 
                             label={item.label} 
                             onPress={() => {
                                 console.log(item.label);
