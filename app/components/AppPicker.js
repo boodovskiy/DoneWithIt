@@ -1,11 +1,11 @@
-import { View, StyleSheet, TextInput, TouchableWithoutFeedback, Modal, Button, FlatList } from 'react-native';
+import { View, StyleSheet, TouchableWithoutFeedback, Modal, Button, FlatList } from 'react-native';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { useState } from 'react';
 import defaultStyles from '../config/styles';   
 import AppText from './AppText';
 import PickerItem from './PickerItem';
 
-function AppPicker({ icon, placeholder, PickerItemComponent = PickerItem, items, onSelectItem, selectedItem, width = "100%" }) {
+function AppPicker({ icon, placeholder, numberOfColumns = 1, PickerItemComponent = PickerItem, items, onSelectItem, selectedItem, width = "100%" }) {
     // State to control the visibility of the modal
     const [modalVisible, setModalVisible] = useState(false)
     return (
@@ -26,8 +26,10 @@ function AppPicker({ icon, placeholder, PickerItemComponent = PickerItem, items,
                 <FlatList 
                     data={items}
                     keyExtractor={item => item.value.toString()}
+                    numColumns={numberOfColumns}
                     renderItem={({ item }) => 
                         <PickerItemComponent 
+                            item={item}
                             label={item.label} 
                             onPress={() => {
                                 console.log(item.label);
