@@ -1,7 +1,7 @@
-import AppForm from "./AppForm";
-import AppFormField from "./AppFormField";
+import Form from "./Form";
+import FormField from "./FormField";
 import SubmitButton from "./SubmitButton";
 import ErrorMessage from "./ErrorMessage";
-import AppFormPicker from "./AppFormPicker";
+import FormPicker from "./FormPicker";
 
-export { AppForm, AppFormField, SubmitButton, ErrorMessage, AppFormPicker };
+export { Form, FormField, SubmitButton, ErrorMessage, FormPicker };
