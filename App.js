@@ -1,15 +1,18 @@
-
-import { GestureHandlerRootView } from 'react-native-gesture-handler';
-import LoginScreen from './app/screens/LoginScreen';
-import ListingEditScreen from './app/screens/ListingEditScreen';
-
+import { useEffect } from "react";
+import { GestureHandlerRootView } from "react-native-gesture-handler";
+import * as ImagePicker from "expo-image-picker";
 
 export default function App() {
+  const requestPermission = async () => {
+    const { granted } = await ImagePicker.requestCameraPermissionsAsync();
+    if (!granted) {
+      alert("Permission to access camera roll is required!");
+    }
+  };
 
+  useEffect(() => {
+    requestPermission();
+  }, []);
 
-  return (
-      <GestureHandlerRootView style={{ flex: 1 }}>
-        <ListingEditScreen />
-      </GestureHandlerRootView>
-    );
+  return <GestureHandlerRootView style={{ flex: 1 }}></GestureHandlerRootView>;
 }
