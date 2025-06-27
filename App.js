@@ -1,19 +1,26 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
-import * as ImagePicker from "expo-image-picker";
-import { View, Image } from "react-native";
-import { Button } from "react-native";
-import ImageInput from "./app/components/ImageInput";
+import { View } from "react-native";
+import ImageInputList from "./app/components/ImageInputList";
 
 export default function App() {
-  const [imageUri, setImageUri] = useState();
+  const [imageUris, setImageUris] = useState([]);
+
+  const handleAdd = (uri) => {
+    setImageUris([...imageUris, uri]);
+  };
+
+  const handleDelete = (uri) => {
+    setImageUris(imageUris.filter((imageUri) => imageUri !== uri));
+  };
 
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
       <View style={{ alignItems: "center", marginTop: 50 }}>
-        <ImageInput
-          imageUri={imageUri}
-          onChangeImage={(uri) => setImageUri(uri)}
+        <ImageInputList
+          imageUris={imageUris}
+          onAddImage={handleAdd}
+          onRemoveImage={handleDelete}
         />
       </View>
     </GestureHandlerRootView>
