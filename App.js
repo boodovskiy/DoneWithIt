@@ -6,6 +6,7 @@ import { NavigationContainer, useNavigation } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import AuthNavigator from "./app/navigation/AuthNavigator";
 import navigationTheme from "./app/navigation/navigationTheme";
+import AppNavigator from "./app/navigation/AppNavigator";
 
 const Link = () => {
   const navigation = useNavigation();
@@ -69,7 +70,7 @@ export default function App() {
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
       <NavigationContainer theme={navigationTheme}>
-        <AuthNavigator />
+        <AppNavigator />
       </NavigationContainer>
     </GestureHandlerRootView>
   );
