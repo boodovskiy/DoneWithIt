@@ -4,7 +4,8 @@ import ListingDetaislScreen from "../screens/ListingDetailsScreen";
 const Stack = createStackNavigator();
 
 const FeedNavigator = () => (
-  <Stack.Navigator mode="modal">
+  <Stack.Navigator mode="modal" screenOptions={{ headerShown: false }}>
+    {/* The mode="modal" prop allows the ListingDetails screen to be presented as a modal */}
     <Stack.Screen name="Listings" component={ListingScreen} />
     <Stack.Screen name="ListingDetails" component={ListingDetaislScreen} />
   </Stack.Navigator>
