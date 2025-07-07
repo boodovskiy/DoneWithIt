@@ -4,9 +4,9 @@ import { Button, Text } from "react-native";
 import { createStackNavigator } from "@react-navigation/stack";
 import { NavigationContainer, useNavigation } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import AuthNavigator from "./app/navigation/AuthNavigator";
 import navigationTheme from "./app/navigation/navigationTheme";
 import AppNavigator from "./app/navigation/AppNavigator";
+import routes from "./app/navigation/routes";
 
 const Link = () => {
   const navigation = useNavigation();
@@ -14,7 +14,7 @@ const Link = () => {
   return (
     <Button
       title="Click"
-      onPress={() => navigation.navigate("TweetsDetails")}
+      onPress={() => navigation.navigate(routes.TWEETS_DETAILS)}
     />
   );
 };
@@ -24,7 +24,7 @@ const Tweets = ({ navigation }) => (
     <Text>Tweets</Text>
     <Button
       title="View Tweet"
-      onPress={() => navigation.navigate("TweetsDetails", { id: 1 })}
+      onPress={() => navigation.navigate(routes.TWEETS_DETAILS, { id: 1 })}
     />
   </Screen>
 );
