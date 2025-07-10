@@ -7,33 +7,19 @@ import routes from "../navigation/routes";
 import listingsApi from "../api/listings";
 import AppText from "../components/AppText";
 import AppButton from "../components/AppButton";
+import useApi from "../hooks/useApi";
 
 function ListingScreen({ navigation }) {
-  const [listings, setListings] = useState([]);
-  const [error, setError] = useState(false);
-  const [loading, setLoading] = useState(false);
+  const {
+    data: listings,
+    error,
+    loading,
+    request: loadListings,
+  } = useApi(listingsApi.getListings);
 
   useEffect(() => {
     loadListings();
   }, []);
-
-  const loadListings = async () => {
-    setLoading(true);
-    try {
-      const response = await listingsApi.getListings();
-      setLoading(false);
-      if (!response.ok) {
-        setError(true);
-        return;
-      }
-
-      setError(false);
-      setListings(response.data);
-    } catch (err) {
-      console.log("API call failed:", err);
-      setError(true);
-    }
-  };
 
   return (
     <Screen style={styles.screen}>
