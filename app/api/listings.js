@@ -21,7 +21,11 @@ const addListing = (listing) => {
   if (listing.location)
     data.append("location", JSON.stringify(listing.location));
 
-  return apiClient.post(endpoint, data);
+  return apiClient.post(endpoint, data, {
+    headers: {
+      "Content-Type": "multipart/form-data",
+    },
+  });
 };
 
 export default {
