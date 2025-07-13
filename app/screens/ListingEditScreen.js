@@ -39,7 +39,7 @@ function ListingEditScreen(props) {
   const [uploadVisible, setUploadVisible] = useState(false);
   const [progress, setProgress] = useState(0);
 
-  const handleSubmit = async (listing) => {
+  const handleSubmit = async (listing, { resetForm }) => {
     setProgress(0);
     setUploadVisible(true);
     console.log("Location:", listing.location);
@@ -53,6 +53,7 @@ function ListingEditScreen(props) {
       console.log("API Error:", result);
       return alert("Could not save the listing.");
     }
+    resetForm();
     alert("Success");
   };
 
