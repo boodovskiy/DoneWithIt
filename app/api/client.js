@@ -7,7 +7,6 @@ const apiClient = create({
 
 const get = apiClient.get;
 apiClient.get = async (url, params, axiosConfig) => {
-  // Before
   const response = await get(url, params, axiosConfig);
 
   if (response.ok) {
@@ -15,7 +14,6 @@ apiClient.get = async (url, params, axiosConfig) => {
     return response;
   }
 
-  // After
   const data = await cache.get(url);
   return data ? { ok: true, data } : response;
 };
