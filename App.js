@@ -7,6 +7,7 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import navigationTheme from "./app/navigation/navigationTheme";
 import AppNavigator from "./app/navigation/AppNavigator";
 import routes from "./app/navigation/routes";
+import OfflineNotice from "./app/components/OfflineNotice";
 
 const Link = () => {
   const navigation = useNavigation();
@@ -69,6 +70,7 @@ const TabNavigator = () => (
 export default function App() {
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
+      <OfflineNotice />
       <NavigationContainer theme={navigationTheme}>
         <AppNavigator />
       </NavigationContainer>
