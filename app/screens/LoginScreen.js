@@ -2,7 +2,14 @@ import { Image, StyleSheet } from "react-native";
 import * as Yup from "yup";
 
 import Screen from "../components/Screen";
-import { Form, FormField, SubmitButton } from "../components/forms";
+import {
+  ErrorMessage,
+  Form,
+  FormField,
+  SubmitButton,
+} from "../components/forms";
+import authApi from "../api/auth";
+
 // Validation schema can be defined here if needed
 const validationSchema = Yup.object().shape({
   email: Yup.string().email().required("Email is required"),
@@ -12,14 +19,27 @@ const validationSchema = Yup.object().shape({
 });
 
 function LoginScreen(props) {
+  const [loginFailed, setLoginFailed] = useState(false);
+  const handleSubmit = async ({ email, password }) => {
+    const result = await authApi.login(email, password);
+    if (!result.ok) {
+      console.log("Login failed", result.data);
+      return setLoginFailed(true);
+      setLoginFailed(false);
+    }
+  };
   return (
     <Screen style={styles.continuer}>
       <Image style={styles.logo} source={require("../assets/logo.jpg")} />
       <Form
         initialValues={{ email: "", password: "" }}
-        onSubmit={(values) => console.log(values)}
+        onSubmit={handleSubmit}
         validationSchema={validationSchema} // Add your validation schema here
       >
+        <ErrorMessage
+          error="Invalid email or password."
+          visible={loginFailed}
+        />
         <FormField
           name="email"
           autoCapitalize="none"
