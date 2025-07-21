@@ -8,6 +8,7 @@ import navigationTheme from "./app/navigation/navigationTheme";
 import AppNavigator from "./app/navigation/AppNavigator";
 import routes from "./app/navigation/routes";
 import OfflineNotice from "./app/components/OfflineNotice";
+import AuthNavigator from "./app/navigation/AuthNavigator";
 
 const Link = () => {
   const navigation = useNavigation();
