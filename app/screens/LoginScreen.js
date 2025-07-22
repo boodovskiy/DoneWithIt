@@ -1,6 +1,6 @@
 import { Image, StyleSheet } from "react-native";
 import * as Yup from "yup";
-import React, { useState } from "react";
+import { useState } from "react";
 
 import Screen from "../components/Screen";
 import {
@@ -24,10 +24,10 @@ function LoginScreen(props) {
   const handleSubmit = async ({ email, password }) => {
     const result = await authApi.login(email, password);
     if (!result.ok) {
-      console.log("Login failed", result.data);
       return setLoginFailed(true);
-      setLoginFailed(false);
     }
+    setLoginFailed(false);
+    console.log(result.data);
   };
   return (
     <Screen style={styles.continuer}>
