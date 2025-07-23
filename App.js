@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import Screen from "./app/components/Screen";
 import { Button, Text } from "react-native";
@@ -9,6 +10,7 @@ import AppNavigator from "./app/navigation/AppNavigator";
 import routes from "./app/navigation/routes";
 import OfflineNotice from "./app/components/OfflineNotice";
 import AuthNavigator from "./app/navigation/AuthNavigator";
+import AuthContext from "./app/auth/context";
 
 const Link = () => {
   const navigation = useNavigation();
@@ -69,12 +71,16 @@ const TabNavigator = () => (
 );
 
 export default function App() {
+  const [user, setUser] = useState();
+
   return (
-    <GestureHandlerRootView style={{ flex: 1 }}>
-      <OfflineNotice />
-      <NavigationContainer theme={navigationTheme}>
-        <AuthNavigator />
-      </NavigationContainer>
-    </GestureHandlerRootView>
+    <AuthContext.Provider value={{ user, setUser }}>
+      <GestureHandlerRootView style={{ flex: 1 }}>
+        <OfflineNotice />
+        <NavigationContainer theme={navigationTheme}>
+          {user ? <AppNavigator /> : <AuthNavigator />}
+        </NavigationContainer>
+      </GestureHandlerRootView>
+    </AuthContext.Provider>
   );
 }
