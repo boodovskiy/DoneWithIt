@@ -10,6 +10,7 @@ import {
   SubmitButton,
 } from "../components/forms";
 import authApi from "../api/auth";
+import { jwtDecode } from "jwt-decode";
 
 // Validation schema can be defined here if needed
 const validationSchema = Yup.object().shape({
@@ -27,6 +28,7 @@ function LoginScreen(props) {
       return setLoginFailed(true);
     }
     setLoginFailed(false);
+    const user = jwtDecode(result.data);
     console.log(result.data);
   };
   return (
