@@ -1,6 +1,7 @@
 import { Image, StyleSheet } from "react-native";
 import * as Yup from "yup";
 import { useContext, useState } from "react";
+import authStorage from "../auth/storage";
 
 import Screen from "../components/Screen";
 import {
@@ -24,6 +25,7 @@ const validationSchema = Yup.object().shape({
 function LoginScreen(props) {
   const authContext = useContext(AuthContext);
   const [loginFailed, setLoginFailed] = useState(false);
+
   const handleSubmit = async ({ email, password }) => {
     const result = await authApi.login(email, password);
     if (!result.ok) {
@@ -32,6 +34,7 @@ function LoginScreen(props) {
     setLoginFailed(false);
     const user = jwtDecode(result.data);
     authContext.setUser(user);
+    authStorage.storeToken(result.data);
   };
   return (
     <Screen style={styles.continuer}>

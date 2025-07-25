@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import Screen from "./app/components/Screen";
 import { Button, Text } from "react-native";
@@ -11,6 +11,7 @@ import routes from "./app/navigation/routes";
 import OfflineNotice from "./app/components/OfflineNotice";
 import AuthNavigator from "./app/navigation/AuthNavigator";
 import AuthContext from "./app/auth/context";
+import { jwtDecode } from "jwt-decode";
 
 const Link = () => {
   const navigation = useNavigation();
@@ -72,6 +73,18 @@ const TabNavigator = () => (
 
 export default function App() {
   const [user, setUser] = useState();
+
+  const restoreToken = async () => {
+    const token = await authStorage.getToken();
+    if (!token) return;
+    if (token) {
+      setUser(jwtDecode(token));
+    }
+  };
+
+  useEffect(() => {
+    restoreToken();
+  }, []);
 
   return (
     <AuthContext.Provider value={{ user, setUser }}>
