@@ -1,8 +1,17 @@
 import { Image, StyleSheet } from "react-native";
 import * as Yup from "yup";
+import { useState } from "react";
 
 import Screen from "../components/Screen";
-import { Form, FormField, SubmitButton } from "../components/forms";
+import {
+  Form,
+  FormField,
+  SubmitButton,
+  ErrorMessage,
+} from "../components/forms";
+import usersApi from "../api/users";
+import authApi from "../api/auth";
+import useAuth from "../auth/useAuth";
 // Validation schema can be defined here if needed
 const validationSchema = Yup.object().shape({
   email: Yup.string().email().required("Email is required"),
@@ -13,14 +22,37 @@ const validationSchema = Yup.object().shape({
 });
 
 function RegisterScreen(props) {
+  const auth = useAuth();
+  const [error, setError] = useState("");
+
+  const handleSubmit = async (userInfo) => {
+    const result = await usersApi.register(userInfo);
+
+    if (!result.ok) {
+      if (result.data) setError(result.data.error);
+      else {
+        setError("An unexpected error occurred.");
+        console.log(result);
+      }
+      return;
+    }
+
+    const { data: authToken } = await authApi.login(
+      userInfo.email,
+      userInfo.password
+    );
+    auth.logIn(authToken); // Assuming authToken contains the token
+  };
+
   return (
     <Screen style={styles.continuer}>
       <Image style={styles.logo} source={require("../assets/logo.jpg")} />
       <Form
         initialValues={{ email: "", password: "" }}
-        onSubmit={(values) => console.log(values)}
+        onSubmit={handleSubmit}
         validationSchema={validationSchema} // Add your validation schema here
       >
+        <ErrorMessage error={error} visible={!!error} />
         <FormField
           name="name"
           autoCapitalize="words"
