@@ -10,13 +10,10 @@ export default useApi = (apiFunc) => {
     try {
       const response = await apiFunc(...args);
       setLoading(false);
-      if (!response.ok) {
-        setError(true);
-        return;
-      }
 
-      setError(false);
+      setError(!response.ok);
       setData(response.data);
+      return response;
     } catch (err) {
       console.log("API call failed:", err);
       setError(true);

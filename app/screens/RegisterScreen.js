@@ -1,4 +1,4 @@
-import { Image, StyleSheet } from "react-native";
+import { ActivityIndicator, Image, StyleSheet } from "react-native";
 import * as Yup from "yup";
 import { useState } from "react";
 
@@ -12,6 +12,7 @@ import {
 import usersApi from "../api/users";
 import authApi from "../api/auth";
 import useAuth from "../auth/useAuth";
+import useApi from "../hooks/useApi";
 // Validation schema can be defined here if needed
 const validationSchema = Yup.object().shape({
   email: Yup.string().email().required("Email is required"),
@@ -22,11 +23,13 @@ const validationSchema = Yup.object().shape({
 });
 
 function RegisterScreen(props) {
+  const registerApi = useApi(usersApi.register);
+  const loginApi = useApi(authApi.login);
   const auth = useAuth();
   const [error, setError] = useState("");
 
   const handleSubmit = async (userInfo) => {
-    const result = await usersApi.register(userInfo);
+    const result = await registerApi.request(userInfo);
 
     if (!result.ok) {
       if (result.data) setError(result.data.error);
@@ -37,7 +40,7 @@ function RegisterScreen(props) {
       return;
     }
 
-    const { data: authToken } = await authApi.login(
+    const { data: authToken } = await loginApi.request(
       userInfo.email,
       userInfo.password
     );
@@ -46,6 +49,10 @@ function RegisterScreen(props) {
 
   return (
     <Screen style={styles.continuer}>
+      <ActivityIndicator
+        animating={registerApi.loading || loginApi.loading}
+        size={"large"}
+      />
       <Image style={styles.logo} source={require("../assets/logo.jpg")} />
       <Form
         initialValues={{ email: "", password: "" }}
@@ -79,7 +86,7 @@ function RegisterScreen(props) {
           secureTextEntry
           textContentType="password"
         />
-        <SubmitButton title="Login" />
+        <SubmitButton title="Register" />
       </Form>
     </Screen>
   );
