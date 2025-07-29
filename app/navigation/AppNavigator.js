@@ -23,7 +23,7 @@ const AppNavigator = () => (
       name="ListingEdit"
       component={ListingEditScreen}
       options={({ navigation }) => ({
-        tabBarButton: (props) => (
+        tabBarButton: () => (
           <NewListingButton
             onPress={() => navigation.navigate(routes.LISTING_EDIT)}
           />
