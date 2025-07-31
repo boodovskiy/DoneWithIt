@@ -21,7 +21,7 @@
     "crypto-js": "^4.2.0",
     "expo": "53.0.10",
     "expo-blur": "~14.1.5",
-    "expo-constants": "^17.1.6",
+    "expo-constants": "~17.1.7",
     "expo-dev-client": "~5.2.0",
     "expo-image-picker": "~16.1.4",
     "expo-location": "^18.1.5",
@@ -44,7 +44,9 @@
     "react-native-safe-area-context": "^5.5.2",
     "react-native-screens": "^3.22.0",
     "react-native-web": "^0.20.0",
-    "yup": "^1.6.1"
+    "yup": "^1.6.1",
+    "expo-notifications": "~0.31.4",
+    "expo-device": "~7.1.4"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",
