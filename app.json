@@ -17,6 +17,7 @@
     },
     "android": {
       "package": "com.donewithit.app",
+      "googleServicesFile": "./google-services.json",
       "adaptiveIcon": {
         "foregroundImage": "./app/assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
