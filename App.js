@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { NavigationContainer, useNavigation } from "@react-navigation/native";
 import * as SplashScreen from "expo-splash-screen";
